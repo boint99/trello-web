@@ -108,7 +108,14 @@ export default [
       // Cảnh báo khoảng trắng sau dấu phẩy
       'comma-spacing': 'warn',
       // Cảnh báo khoảng trắng quanh => trong arrow function
-      'arrow-spacing': 'warn'
+      'arrow-spacing': 'warn',
+      //rule material MUI
+      'no-restricted-imports': [
+      'error',
+      {
+        'patterns': ['@mui/*/*/*']
+      }
+    ]
     }
   }
 ]
