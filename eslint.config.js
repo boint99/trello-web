@@ -72,7 +72,7 @@ export default [
 
       // ===== Code Quality & Best Practices =====
       // Cảnh báo khi sử dụng console.log (nên xóa trước khi production)
-      'no-console': 'warn',
+      // 'no-console': 'warn',
       // Cảnh báo khi viết if trong else không cần thiết
       'no-lonely-if': 'warn',
       // Cảnh báo biến không dùng, bỏ qua biến VIẾT_HOA (constants)
