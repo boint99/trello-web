@@ -3,3 +3,12 @@ export const capitalizeFirstLetter = (val) => {
   if (!val) return ''
   return `${val.charAt(0).toUpperCase()}${val.slice(1)}`
 }
+
+export const generatePlaceholdercard = (column) => {
+  return {
+    _id: `${column._id}-placeholder-cardd`,
+    boardId: column.boardId,
+    columnId: column._id,
+    FE_placehoderCard: true
+  }
+}

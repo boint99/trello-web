@@ -109,12 +109,14 @@ export default [
       'comma-spacing': 'warn',
       // Cảnh báo khoảng trắng quanh => trong arrow function
       'arrow-spacing': 'warn',
+      'no-extra-boolean-cast': 0,
       //rule material MUI
       'no-restricted-imports': [
       'error',
       {
         'patterns': ['@mui/*/*/*']
       }
+      
     ]
     }
   }

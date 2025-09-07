@@ -1,3 +1,4 @@
+
 export const mockData = {
   board: {
     _id: 'board-id-01',
@@ -20,7 +21,7 @@ export const mockData = {
             columnId: 'column-id-01',
             title: 'Title of card 01',
             description: 'Markdown Syntax (sẽ ở khóa nâng cao nhé)',
-            cover: 'https://binhminhdigital.com/StoreData/PageData/3429/Tim-hieu-ve-ban-quyen-hinh-anh%20(3).jpg',
+            cover: 'http://statictuoitre.mediacdn.vn/2017/4709ff4200000578-5150303-image-m-901512557215531-1512692106591.jpg',
             memberIds: ['test-user-id-01'],
             comments: ['test comment 01', 'test comment 02'],
             attachments: ['test attachment 01', 'test attachment 02', 'test attachment 03']
@@ -53,6 +54,19 @@ export const mockData = {
           { _id: 'card-id-11', boardId: 'board-id-01', columnId: 'column-id-03', title: 'Title of card 11', description: null, cover: null, memberIds: [], comments: [], attachments: [] },
           { _id: 'card-id-12', boardId: 'board-id-01', columnId: 'column-id-03', title: 'Title of card 12', description: null, cover: null, memberIds: [], comments: [], attachments: [] },
           { _id: 'card-id-13', boardId: 'board-id-01', columnId: 'column-id-03', title: 'Title of card 13', description: null, cover: null, memberIds: [], comments: [], attachments: [] }
+        ]
+      },
+      {
+        _id: 'column-id-04',
+        boardId: 'board-id-20',
+        title: 'Emty column',
+        cardOrderIds: ['column-id-fe_placehoder-card'],
+        cards: [
+          { _id: 'card-id-20',
+            boardId: 'board-id-20',
+            columnId: 'column-id-20',
+            FE_placehoderCard: true
+          }
         ]
       }
     ]
