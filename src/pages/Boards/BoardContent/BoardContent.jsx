@@ -1,19 +1,20 @@
 import Box from '@mui/material/Box'
 import ListColumn from './ListColumn/ListColumn'
 import { mapOrder } from '~/utils/sorts'
-import { DndContext,
-  PointerSensor,
+import {
+  DndContext,
+  // PointerSensor,
+  // MouseSensor,
+  // TouchSensor,
   useSensor,
   useSensors,
-  MouseSensor,
-  TouchSensor,
   DragOverlay,
   defaultDropAnimationSideEffects,
   closestCorners,
   pointerWithin,
-  rectIntersection,
   getFirstCollision
 } from '@dnd-kit/core'
+import { MouseSensor, TouchSensor } from '~/customLibraies/DndKitSenor'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { arrayMove } from '@dnd-kit/sortable'
 import Column from './ListColumn/Column/Column'
@@ -30,9 +31,9 @@ const ACTIVE_DRAG_ITEM_TYPE = {
 function BoardContent({ board }) {
 
   // chuột di chuyển 10px thì even hoạt động
-  const PointerSenser = useSensor(PointerSensor, {
-    activationConstraint: { distance: 10 }
-  })
+  // const PointerSenser = useSensor(PointerSensor, {
+  //   activationConstraint: { distance: 10 }
+  // })
   // const sensors = useSensors(PointerSenser)
 
   const mouseSensor = useSensor(MouseSensor, {
@@ -93,7 +94,6 @@ function BoardContent({ board }) {
 
         // thêm Placehodlder card nếu  Column rỗng
         if (isEmpty(nexActiveColumn.cards)) {
-          console.log('card cuối cùng kéo đi')
           nexActiveColumn.card = [generatePlaceholdercard(nexActiveColumn)]
         }
         nexActiveColumn.cardOrderIds = nexActiveColumn.cards.map(card => card._id)
@@ -117,12 +117,10 @@ function BoardContent({ board }) {
         nextOverColumn.cards = nextOverColumn.cards.filter(c => !c.FE_placehoderCard)
         nextOverColumn.cardOrderIds = nextOverColumn.cards.map(card => card._id)
       }
-      console.log('🚀 ~ moveCardBetweenDifferenColums ~ nextOverColumn:', nextOverColumn)
       return nexColumns
     })
   }
   const handleDragStart = (event) => {
-    console.log('🚀 ~ handleDragStart ~ event:', event)
     setActiveDrapItemId(event?.active?.id)
     setActiveDrapItemType(event?.active?.data?.current?.columnId ? ACTIVE_DRAG_ITEM_TYPE.CARD : ACTIVE_DRAG_ITEM_TYPE.COLUMN)
     setActiveDrapItemData(event?.active?.data?.current)
