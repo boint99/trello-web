@@ -24,6 +24,7 @@ const boardMenu = {
   }
 }
 function BoardBar({ board }) {
+  console.log('🚀 ~ BoardBar ~ board:', board)
 
   return (
     <Box px={2} sx={{
@@ -38,12 +39,14 @@ function BoardBar({ board }) {
       bgcolor: (theme) => (theme.palette.mode === 'dark' ? '#34495e' : '#1976d2')
     }}>
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-        <Chip
-          icon={<DashboardIcon />}
-          clickable
-          label={board?.title}
-          sx={boardMenu}
-        />
+        <Tooltip title={board?.description}>
+          <Chip
+            icon={<DashboardIcon />}
+            clickable
+            label={board?.title}
+            sx={boardMenu}
+          />
+        </Tooltip>
         <Chip
           icon={<VpnLock />}
           label={capitalizeFirstLetter(board?.type)}
@@ -70,16 +73,19 @@ function BoardBar({ board }) {
         />
       </Box>
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-        <Button
-          variant='outlined'
-          startIcon={<PersonAddIcon />}
-          sx={{
-            color: 'white',
-            borderColor: 'white',
-            '&Lhover': { borderColor: 'white' }
-          }}
-        >
-            Invite</Button>
+        <Chip>
+          <Button
+            variant='outlined'
+            startIcon={<PersonAddIcon />}
+            sx={{
+              color: 'white',
+              borderColor: 'white',
+              '&Lhover': { borderColor: 'white' }
+            }}
+          >
+            Invite
+          </Button>
+        </Chip>
         <AvatarGroup
           max={4}
           sx={{
