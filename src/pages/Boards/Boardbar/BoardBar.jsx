@@ -24,7 +24,6 @@ const boardMenu = {
   }
 }
 function BoardBar({ board }) {
-  console.log('🚀 ~ BoardBar ~ board:', board)
 
   return (
     <Box px={2} sx={{
@@ -102,19 +101,19 @@ function BoardBar({ board }) {
           }}
         >
           <Tooltip title= 'users'>
-            <Avatar alt="users" src='https://binhminhdigital.com/StoreData/PageData/3429/Tim-hieu-ve-ban-quyen-hinh-anh%20(3).jpg' />
+            <Avatar alt="users" src='' />
           </Tooltip>
           <Tooltip title= 'users'>
-            <Avatar alt="users" src='https://binhminhdigital.com/StoreData/PageData/3429/Tim-hieu-ve-ban-quyen-hinh-anh%20(3).jpg' />
+            <Avatar alt="users" src='h' />
           </Tooltip>
           <Tooltip title= 'users'>
-            <Avatar alt="users" src='https://binhminhdigital.com/StoreData/PageData/3429/Tim-hieu-ve-ban-quyen-hinh-anh%20(3).jpg' />
+            <Avatar alt="users" src='' />
           </Tooltip>
           <Tooltip title= 'users'>
-            <Avatar alt="users" src='https://binhminhdigital.com/StoreData/PageData/3429/Tim-hieu-ve-ban-quyen-hinh-anh%20(3).jpg' />
+            <Avatar alt="users" src='' />
           </Tooltip>
           <Tooltip title= 'users'>
-            <Avatar alt="users" src='https://binhminhdigital.com/StoreData/PageData/3429/Tim-hieu-ve-ban-quyen-hinh-anh%20(3).jpg' />
+            <Avatar alt="users" src='' />
           </Tooltip>
         </AvatarGroup>
       </Box>

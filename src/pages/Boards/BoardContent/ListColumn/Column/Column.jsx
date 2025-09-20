@@ -11,12 +11,12 @@ import AddCardIcon from '@mui/icons-material/AddCard'
 import DragHandleIcon from '@mui/icons-material/DragHandle'
 import ListCards from './ListCards/ListCards'
 import NoteAddIcon from '@mui/icons-material/NoteAdd'
-import { mapOrder } from '~/utils/sorts'
 import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
 import CloseIcon from '@mui/icons-material/Close'
 
-function Column({ column }) {
+function Column({ column, createNewCard }) {
+
   const {
     attributes,
     listeners,
@@ -44,17 +44,27 @@ function Column({ column }) {
     setAnchorEl(null)
   }
 
-  const orderedCards = mapOrder(column?.cards, column?.cardOrderIds, '_id')
+  const orderedCards = column.cards
 
   const [openNewCardForm, setOpenNewCardForm] = useState(false)
   const [addNewCardtitle, setAddNewCardTitle] = useState('')
-  const toggleOpenNewCardForm = () => setOpenNewCardForm(!openNewCardForm)
+  const toggleOpenNewCardForm = () => {
+    setOpenNewCardForm(!openNewCardForm)
+    if (openNewCardForm === false) {
+      setAddNewCardTitle('')
+    }
+  }
 
-  const addNewCard = () => {
+  const addNewCard = async() => {
     if (!addNewCardtitle) return
 
     // call api
+    const newColumnData = {
+      title: addNewCardtitle,
+      columnId: column._id
+    }
 
+    await createNewCard(newColumnData)
     // close
     toggleOpenNewCardForm()
     setAddNewCardTitle('')
@@ -170,18 +180,19 @@ function Column({ column }) {
                 height: '100%',
                 display: 'flex',
                 alignItems: 'center',
-                gap: 1
+                gap: 1,
+                justifyContent: 'space-between'
               }}>
                 <TextField
                   label="Enter card title..."
                   type="text"
                   size='small'
-                  variant="outlined"
                   autoFocus
                   data-no-dnd='true'
                   value={addNewCardtitle}
                   onChange={(e) => setAddNewCardTitle(e.target.value)}
                   sx={{
+                    width: '100px',
                     '& label': { color: 'text.primary' },
                     '& input': {
                       color:  (theme) => theme.palette.success.main,
@@ -214,7 +225,9 @@ function Column({ column }) {
                       '&:hover': { bgcolor: (theme) => theme.palette.success.main }
 
                     }}
-                  >Add Column</Button>
+                  >
+                    Add Card
+                  </Button>
                   <CloseIcon
                     fontSize='small'
                     sx={{

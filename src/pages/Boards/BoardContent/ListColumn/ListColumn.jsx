@@ -5,21 +5,29 @@ import { Button, TextField } from '@mui/material'
 import { SortableContext, horizontalListSortingStrategy } from '@dnd-kit/sortable'
 import { useState } from 'react'
 import CloseIcon from '@mui/icons-material/Close'
+import { toast } from 'react-toastify'
 
-function ListColumn({ columns }) {
+function ListColumn({ columns, createNewColumn, createNewCard }) {
   const [openNewColumForm, setOpenNewColumForm] = useState(false)
   const [addNewColumntitle, setAddNewColumnTitle] = useState('')
   const toggleOpenNewColumForm = () => setOpenNewColumForm(!openNewColumForm)
 
-  const addNewColumn = () => {
-    if (!addNewColumntitle) return
+  const addNewColumn = async() => {
+    if (!addNewColumntitle) {
+      toast.success('Vui lòng nhập column mới')
+      return
+    }
+    // Tạo dữ liêu
+    const newColumnData = {
+      title: addNewColumntitle
+    }
 
-    // call api
-
+    await createNewColumn(newColumnData)
     // close
     toggleOpenNewColumForm()
     setAddNewColumnTitle('')
   }
+
   return (
     <>
       <SortableContext
@@ -37,7 +45,7 @@ function ListColumn({ columns }) {
           }
 
         }}>
-          { columns?.map(column => <Column key={column._id} column={ column }/>)}
+          { columns?.map(column => <Column key={column._id} column={ column } createNewCard={createNewCard}/>)}
           {/* add new column */}
 
           {!openNewColumForm
@@ -113,7 +121,9 @@ function ListColumn({ columns }) {
                     '&:hover': { bgcolor: (theme) => theme.palette.success.main }
 
                   }}
-                >Add Column</Button>
+                >
+                  Add Column
+                </Button>
                 <CloseIcon
                   fontSize='small'
                   sx={{
