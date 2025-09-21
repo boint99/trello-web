@@ -14,8 +14,10 @@ import NoteAddIcon from '@mui/icons-material/NoteAdd'
 import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
 import CloseIcon from '@mui/icons-material/Close'
+import { useConfirm } from 'material-ui-confirm'
 
-function Column({ column, createNewCard }) {
+function Column({ column, createNewCard, deleteColumnDetails }) {
+  console.log('🚀 ~ Column ~ column:', column)
 
   const {
     attributes,
@@ -55,6 +57,7 @@ function Column({ column, createNewCard }) {
     }
   }
 
+
   const addNewCard = async() => {
     if (!addNewCardtitle) return
 
@@ -68,6 +71,19 @@ function Column({ column, createNewCard }) {
     // close
     toggleOpenNewCardForm()
     setAddNewCardTitle('')
+  }
+
+  const confirmDeleteColumn = useConfirm()
+  // xóa column và cards
+  const handleDeleteColumn = () => {
+    confirmDeleteColumn({
+      description: 'This action will permanently delete your Column add its card! Are you sure?',
+      title: 'Delete Column'
+      // description: 'This action will permanently delete your Column add its card! Are you sure?',
+      // confirmationKeyword: 'tieuBoi'
+    }).then(() => {
+      deleteColumnDetails(column._id)
+    }).catch()
   }
 
   return (
@@ -123,12 +139,21 @@ function Column({ column, createNewCard }) {
                 anchorEl={anchorEl}
                 open={open}
                 onClose={handleClose}
+                onClick={handleClose}
                 MenuListProps={{
                   'aria-labelledby': 'basic-button'
                 }}
               >
-                <MenuItem>
-                  <ListItemIcon><AddCardIcon fontSize='smaill' /></ListItemIcon>
+                <MenuItem
+                  onClick={toggleOpenNewCardForm}
+                  sx={{
+                    '&:hover': {
+                      color: 'success.light',
+                      '& .add-card-icon': { color: 'success.light' }
+                    }
+                  }}
+                >
+                  <ListItemIcon><AddCardIcon fontSize='smaill' className='add-card-icon'/></ListItemIcon>
                   <ListItemText>Add new card </ListItemText>
                 </MenuItem>
                 <MenuItem>
@@ -144,8 +169,16 @@ function Column({ column, createNewCard }) {
                   <ListItemText>Past</ListItemText>
                 </MenuItem>
                 <Divider />
-                <MenuItem>
-                  <ListItemIcon><DeleteIcon fontSize='smaill' /></ListItemIcon>
+                <MenuItem
+                  onClick={handleDeleteColumn}
+                  sx={{
+                    '&:hover': {
+                      color: 'warning.dark',
+                      '& .deleteIcon-forever-icon': { color: 'warning.dark' }
+                    }
+                  }}
+                >
+                  <ListItemIcon><DeleteIcon fontSize='smaill' className='deleteIcon-forever-icon'/></ListItemIcon>
                   <ListItemText>Remove this column</ListItemText>
                 </MenuItem>
                 <MenuItem>
@@ -192,7 +225,6 @@ function Column({ column, createNewCard }) {
                   value={addNewCardtitle}
                   onChange={(e) => setAddNewCardTitle(e.target.value)}
                   sx={{
-                    width: '100px',
                     '& label': { color: 'text.primary' },
                     '& input': {
                       color:  (theme) => theme.palette.success.main,
@@ -226,7 +258,7 @@ function Column({ column, createNewCard }) {
 
                     }}
                   >
-                    Add Card
+                    Add
                   </Button>
                   <CloseIcon
                     fontSize='small'
