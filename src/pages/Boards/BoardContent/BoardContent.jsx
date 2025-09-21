@@ -33,7 +33,8 @@ function BoardContent({
   createNewCard,
   moveColumns,
   moveCardInTheSameColumn,
-  moveCardToDifferentColumn
+  moveCardToDifferentColumn,
+  deleteColumnDetails
 }) {
   // chuột di chuyển 10px thì even hoạt động
   // const PointerSenser = useSensor(PointerSensor, {
@@ -328,6 +329,7 @@ function BoardContent({
       }}>
         <ListColumn
           columns = { orderedColumns }
+          deleteColumnDetails= {deleteColumnDetails}
           // columns={columns}
           createNewColumn={createNewColumn}
           createNewCard = {createNewCard}/>
